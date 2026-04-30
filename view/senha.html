@@ -1,0 +1,28 @@
+<!-- =============================================
+       PAGE 3 — SENHA DOS BICHINHOS
+  ============================================= -->
+  <section id="page-senha" class="page">
+    <div class="section-logo" style="margin-bottom:16px">
+      <span style="font-size:2rem">🦉</span>
+      <span>Safari Alpha</span>
+    </div>
+
+    <h2>Senha dos Bichinhos</h2>
+    <p class="subtitle">Escolha seus 3 bichinhos na ordem certa!</p>
+
+    <!-- Slots da senha -->
+    <div class="senha-slots" id="senha-slots">
+      <div class="slot" data-index="0" onclick="App.removeSlot(0)">❓</div>
+      <div class="slot" data-index="1" onclick="App.removeSlot(1)">❓</div>
+      <div class="slot" data-index="2" onclick="App.removeSlot(2)">❓</div>
+    </div>
+
+    <!-- Grade de animais -->
+    <div class="animais-grid" id="animais-grid">
+      <!-- Gerado via JS -->
+    </div>
+
+    <button class="btn-voltar" onclick="App.goTo('exploradores')">
+      ← Voltar
+    </button>
+  </section>

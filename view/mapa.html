@@ -1,0 +1,118 @@
+<section id="page-mapa" class="page">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="topbar-avatar">🧒</div>
+        <span class="topbar-name" id="topbar-name">Explorador</span>
+      </div>
+      <div class="topbar-coins">
+        🪙 <span id="topbar-coins">0</span>
+      </div>
+      <button class="topbar-search" onclick="App.openSearch()">🔍</button>
+    </header>
+
+    <!-- Mapa de seções / fases -->
+    <main class="mapa-scroll" id="mapa-scroll">
+
+      <!-- Fazendinha -->
+      <div class="mapa-section fazendinha">
+        <div class="section-header">
+          <div class="section-icon">🐄</div>
+          <div class="section-info">
+            <div class="section-name">Fazendinha</div>
+            <div class="section-status">Primeiras letras do campo</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row" data-section="fazendinha">
+            <div class="level-bubble done" onclick="App.openLevel('fazendinha',1)">
+              A <span class="star-badge">⭐</span>
+            </div>
+            <div class="level-bubble done" onclick="App.openLevel('fazendinha',2)">
+              E <span class="star-badge">⭐</span>
+            </div>
+            <div class="level-bubble current" onclick="App.openLevel('fazendinha',3)">I</div>
+            <div class="level-bubble locked">O</div>
+            <div class="level-bubble locked">U</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floresta -->
+      <div class="mapa-section floresta">
+        <div class="section-header">
+          <div class="section-icon">🌳</div>
+          <div class="section-info">
+            <div class="section-name">Floresta</div>
+            <div class="section-status">Aventure-se na floresta</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble current" onclick="App.openLevel('floresta',1)">B</div>
+            <div class="level-bubble locked">D</div>
+            <div class="level-bubble locked">F</div>
+            <div class="level-bubble locked">G</div>
+            <div class="level-bubble locked">H</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Savana -->
+      <div class="mapa-section savana">
+        <div class="section-header">
+          <div class="section-icon">🦁</div>
+          <div class="section-info">
+            <div class="section-name">Savana</div>
+            <div class="section-status">Aprenda no calor da savana</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble locked">M</div>
+            <div class="level-bubble locked">N</div>
+            <div class="level-bubble locked">P</div>
+            <div class="level-bubble locked">R</div>
+            <div class="level-bubble locked">S</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fundo do Mar -->
+      <div class="mapa-section mar">
+        <div class="section-header">
+          <div class="section-icon">🐠</div>
+          <div class="section-info">
+            <div class="section-name">Fundo do Mar</div>
+            <div class="section-status">Mergulhe no conhecimento</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble locked">T</div>
+            <div class="level-bubble locked">V</div>
+            <div class="level-bubble locked">X</div>
+            <div class="level-bubble locked">Z</div>
+            <div class="level-bubble locked">+</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="App.setNav(this)">
+        <span class="nav-icon">🗺️</span> Mapa
+      </button>
+      <button class="nav-item" onclick="App.setNav(this)">
+        <span class="nav-icon">⭐</span> Conquistas
+      </button>
+      <button class="nav-item" onclick="App.setNav(this)">
+        <span class="nav-icon">📖</span> Livro do Explorador
+      </button>
+      <button class="nav-item" onclick="App.goTo('home')">
+        <span class="nav-icon">🚪</span> Sair
+      </button>
+    </nav>
+  </section>
