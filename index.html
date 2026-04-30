@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safari Alpha — Alfabetização Bilíngue com Animais</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =============================================
+       PAGE 1 — HOME
+  ============================================= -->
+  <section id="page-home" class="page active">
+    <div class="home-logo">
+      <span style="font-size:2.8rem">🦉</span>
+      <h1>Zoológico</h1>
+    </div>
+    <p class="home-subtitle">Alfabetização Bilíngue com Animais</p>
+
+    <div class="home-cards">
+      <!-- Portal dos Pais -->
+      <button class="home-card purple" onclick="App.goTo('pais')">
+        <span class="card-emoji">🦉</span>
+        <span class="card-title">Portal dos Pais</span>
+        <span class="card-desc">Acompanhe o progresso da criança</span>
+        <div class="card-dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+      </button>
+
+      <!-- Sou Explorador -->
+      <button class="home-card yellow" onclick="App.goTo('exploradores')">
+        <span class="card-emoji">🧭</span>
+        <span class="card-title">Sou Explorador!</span>
+        <span class="card-desc">Inicie uma aventura de aprendizado</span>
+        <div class="card-dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="home-lang">
+      <button class="lang-btn active" id="lang-br" onclick="App.setLang('br')">
+        <span>🇧🇷</span> Português
+      </button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" id="lang-en" onclick="App.setLang('en')">
+        <span>En</span> English
+      </button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       PAGE 2 — EXPLORADORES
+  ============================================= -->
+  <section id="page-exploradores" class="page">
+    <div class="section-logo">
+      <span style="font-size:2rem">🦉</span>
+      <span>Safari Alpha</span>
+    </div>
+
+    <div class="white-card">
+      <h2>Quem está explorando?</h2>
+      <p class="subtitle">Clique no seu Explorador</p>
+
+      <div class="explorers-grid" id="explorers-grid">
+        <!-- Gerado via JS -->
+      </div>
+
+      <button class="btn-novo" onclick="App.novoExplorador()">
+        <span>＋</span> Criar Novo Explorador
+      </button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       PAGE 3 — SENHA DOS BICHINHOS
+  ============================================= -->
+  <section id="page-senha" class="page">
+    <div class="section-logo" style="margin-bottom:16px">
+      <span style="font-size:2rem">🦉</span>
+      <span>Safari Alpha</span>
+    </div>
+
+    <h2>Senha dos Bichinhos</h2>
+    <p class="subtitle">Escolha seus 3 bichinhos na ordem certa!</p>
+
+    <!-- Slots da senha -->
+    <div class="senha-slots" id="senha-slots">
+      <div class="slot" data-index="0" onclick="App.removeSlot(0)">❓</div>
+      <div class="slot" data-index="1" onclick="App.removeSlot(1)">❓</div>
+      <div class="slot" data-index="2" onclick="App.removeSlot(2)">❓</div>
+    </div>
+
+    <!-- Grade de animais -->
+    <div class="animais-grid" id="animais-grid">
+      <!-- Gerado via JS -->
+    </div>
+
+    <button class="btn-voltar" onclick="App.goTo('exploradores')">
+      ← Voltar
+    </button>
+  </section>
+
+  <!-- =============================================
+       PAGE 4 — MAPA DO JOGO
+  ============================================= -->
+  <section id="page-mapa" class="page">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-user">
+        <div class="topbar-avatar" id="topbar-avatar">🧒</div>
+        <span class="topbar-name" id="topbar-name">Explorador</span>
+      </div>
+      <div class="topbar-coins">
+        🪙 <span id="topbar-coins">0</span>
+      </div>
+      <button class="topbar-search" onclick="App.openSearch()">🔍</button>
+    </header>
+
+    <!-- Mapa de seções / fases -->
+    <main class="mapa-scroll" id="mapa-scroll">
+
+      <!-- Fazendinha -->
+      <div class="mapa-section fazendinha">
+        <div class="section-header">
+          <div class="section-icon">🐄</div>
+          <div class="section-info">
+            <div class="section-name">Fazendinha</div>
+            <div class="section-status">Primeiras letras do campo</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row" data-section="fazendinha">
+            <div class="level-bubble done" onclick="App.openLevel('fazendinha',1)">
+              A <span class="star-badge">⭐</span>
+            </div>
+            <div class="level-bubble done" onclick="App.openLevel('fazendinha',2)">
+              E <span class="star-badge">⭐</span>
+            </div>
+            <div class="level-bubble current" onclick="App.openLevel('fazendinha',3)">I</div>
+            <div class="level-bubble locked">O</div>
+            <div class="level-bubble locked">U</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floresta -->
+      <div class="mapa-section floresta">
+        <div class="section-header">
+          <div class="section-icon">🌳</div>
+          <div class="section-info">
+            <div class="section-name">Floresta</div>
+            <div class="section-status">Aventure-se na floresta</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble current" onclick="App.openLevel('floresta',1)">B</div>
+            <div class="level-bubble locked">D</div>
+            <div class="level-bubble locked">F</div>
+            <div class="level-bubble locked">G</div>
+            <div class="level-bubble locked">H</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Savana -->
+      <div class="mapa-section savana">
+        <div class="section-header">
+          <div class="section-icon">🦁</div>
+          <div class="section-info">
+            <div class="section-name">Savana</div>
+            <div class="section-status">Aprenda no calor da savana</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble locked">M</div>
+            <div class="level-bubble locked">N</div>
+            <div class="level-bubble locked">P</div>
+            <div class="level-bubble locked">R</div>
+            <div class="level-bubble locked">S</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fundo do Mar -->
+      <div class="mapa-section mar">
+        <div class="section-header">
+          <div class="section-icon">🐠</div>
+          <div class="section-info">
+            <div class="section-name">Fundo do Mar</div>
+            <div class="section-status">Mergulhe no conhecimento</div>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="levels-row">
+            <div class="level-bubble locked">T</div>
+            <div class="level-bubble locked">V</div>
+            <div class="level-bubble locked">X</div>
+            <div class="level-bubble locked">Z</div>
+            <div class="level-bubble locked">+</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <button class="nav-item active" onclick="App.setNav(this)">
+        <span class="nav-icon">🗺️</span> Mapa
+      </button>
+      <button class="nav-item" onclick="App.setNav(this)">
+        <span class="nav-icon">⭐</span> Conquistas
+      </button>
+      <button class="nav-item" onclick="App.setNav(this)">
+        <span class="nav-icon">📖</span> Livro do Explorador
+      </button>
+      <button class="nav-item" onclick="App.goTo('home')">
+        <span class="nav-icon">🚪</span> Sair
+      </button>
+    </nav>
+  </section>
+
+  <!-- =============================================
+       PAGE 5 — PORTAL DOS PAIS
+  ============================================= -->
+  <section id="page-pais" class="page">
+    <div class="section-logo" style="margin-bottom:20px">
+      <span style="font-size:2rem">🦉</span>
+      <span>Safari Alpha</span>
+    </div>
+
+    <div class="pais-card">
+      <h2>📊 Portal dos Pais</h2>
+      <p class="subtitle">Acompanhe o progresso da criança</p>
+
+      <!-- Stats rápidas -->
+      <div class="stats-grid">
+        <div class="stat-box">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Fases concluídas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">🪙 24</div>
+          <div class="stat-label">Moedas ganhas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Dias seguidos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">⭐ 6</div>
+          <div class="stat-label">Estrelas obtidas</div>
+        </div>
+      </div>
+
+      <!-- Barra de progresso por seção -->
+      <div class="progress-section">
+        <h3>Progresso por Seção</h3>
+
+        <div class="progress-item">
+          <span class="progress-label">🐄 Fazendinha</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:60%; background:linear-gradient(90deg,#f59e0b,#d97706)"></div>
+          </div>
+          <span class="progress-pct">60%</span>
+        </div>
+
+        <div class="progress-item">
+          <span class="progress-label">🌳 Floresta</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:20%; background:linear-gradient(90deg,#10b981,#059669)"></div>
+          </div>
+          <span class="progress-pct">20%</span>
+        </div>
+
+        <div class="progress-item">
+          <span class="progress-label">🦁 Savana</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:0%; background:linear-gradient(90deg,#ef4444,#dc2626)"></div>
+          </div>
+          <span class="progress-pct">0%</span>
+        </div>
+
+        <div class="progress-item">
+          <span class="progress-label">🐠 Fundo Mar</span>
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" style="width:0%; background:linear-gradient(90deg,#3b82f6,#2563eb)"></div>
+          </div>
+          <span class="progress-pct">0%</span>
+        </div>
+      </div>
+
+      <button class="btn-sair" onclick="App.goTo('home')">← Voltar ao Início</button>
+    </div>
+  </section>
+
+  <!-- =============================================
+       MODAL — Nível / Erro / Sucesso
+  ============================================= -->
+  <div class="modal-overlay" id="modal-overlay" onclick="App.closeModal(event)">
+    <div class="modal" id="modal-box">
+      <div class="modal-emoji" id="modal-emoji">🎉</div>
+      <h3 id="modal-title">Título</h3>
+      <p id="modal-desc">Descrição</p>
+      <div class="modal-btns">
+        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
+        <button class="btn-modal primary" id="modal-action" onclick="">Jogar!</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
