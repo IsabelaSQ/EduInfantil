@@ -7,10 +7,6 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
 </head>
 <body>
-
-  <!-- =============================================
-       PAGE 1 — HOME
-  ============================================= -->
   <section id="page-home" class="page active">
     <div class="home-logo">
       <span style="font-size:2.8rem">🦉</span>
@@ -30,7 +26,7 @@
       </button>
 
       <!-- Sou Explorador -->
-      <button class="home-card yellow" onclick="App.goTo('exploradores')">
+      <button class="home-card yellow" onclick="window.location.href='exploradores.html'">
         <span class="card-emoji">🧭</span>
         <span class="card-title">Sou Explorador!</span>
         <span class="card-desc">Inicie uma aventura de aprendizado</span>
@@ -51,196 +47,7 @@
       </button>
     </div>
   </section>
-
-  <!-- =============================================
-       PAGE 2 — EXPLORADORES
-  ============================================= -->
-  <section id="page-exploradores" class="page">
-    <div class="section-logo">
-      <span style="font-size:2rem">🦉</span>
-      <span>Safari Alpha</span>
-    </div>
-
-    <div class="white-card">
-      <h2>Quem está explorando?</h2>
-      <p class="subtitle">Clique no seu Explorador</p>
-
-      <div class="explorers-grid" id="explorers-grid">
-        <!-- Gerado via JS -->
-      </div>
-
-      <button class="btn-novo" onclick="App.novoExplorador()">
-        <span>＋</span> Criar Novo Explorador
-      </button>
-    </div>
-  </section>
-
-  <!-- =============================================
-       PAGE 3 — SENHA DOS BICHINHOS
-  ============================================= -->
-  <section id="page-senha" class="page">
-    <div class="section-logo" style="margin-bottom:16px">
-      <span style="font-size:2rem">🦉</span>
-      <span>Safari Alpha</span>
-    </div>
-
-    <h2>Senha dos Bichinhos</h2>
-    <p class="subtitle">Escolha seus 3 bichinhos na ordem certa!</p>
-
-    <!-- Slots da senha -->
-    <div class="senha-slots" id="senha-slots">
-      <div class="slot" data-index="0" onclick="App.removeSlot(0)">❓</div>
-      <div class="slot" data-index="1" onclick="App.removeSlot(1)">❓</div>
-      <div class="slot" data-index="2" onclick="App.removeSlot(2)">❓</div>
-    </div>
-
-    <!-- Grade de animais -->
-    <div class="animais-grid" id="animais-grid">
-      <!-- Gerado via JS -->
-    </div>
-
-    <button class="btn-voltar" onclick="App.goTo('exploradores')">
-      ← Voltar
-    </button>
-  </section>
-
-  <!-- =============================================
-       PAGE 4 — MAPA DO JOGO
-  ============================================= -->
-  <section id="page-mapa" class="page">
-    <!-- Top Bar -->
-    <header class="topbar">
-      <div class="topbar-user">
-        <div class="topbar-avatar" id="topbar-avatar">🧒</div>
-        <span class="topbar-name" id="topbar-name">Explorador</span>
-      </div>
-      <div class="topbar-coins">
-        🪙 <span id="topbar-coins">0</span>
-      </div>
-      <button class="topbar-search" onclick="App.openSearch()">🔍</button>
-    </header>
-
-    <!-- Mapa de seções / fases -->
-    <main class="mapa-scroll" id="mapa-scroll">
-
-      <!-- Fazendinha -->
-      <div class="mapa-section fazendinha">
-        <div class="section-header">
-          <div class="section-icon">🐄</div>
-          <div class="section-info">
-            <div class="section-name">Fazendinha</div>
-            <div class="section-status">Primeiras letras do campo</div>
-          </div>
-        </div>
-        <div class="section-body">
-          <div class="levels-row" data-section="fazendinha">
-            <div class="level-bubble done" onclick="App.openLevel('fazendinha',1)">
-              A <span class="star-badge">⭐</span>
-            </div>
-            <div class="level-bubble done" onclick="App.openLevel('fazendinha',2)">
-              E <span class="star-badge">⭐</span>
-            </div>
-            <div class="level-bubble current" onclick="App.openLevel('fazendinha',3)">I</div>
-            <div class="level-bubble locked">O</div>
-            <div class="level-bubble locked">U</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Floresta -->
-      <div class="mapa-section floresta">
-        <div class="section-header">
-          <div class="section-icon">🌳</div>
-          <div class="section-info">
-            <div class="section-name">Floresta</div>
-            <div class="section-status">Aventure-se na floresta</div>
-          </div>
-        </div>
-        <div class="section-body">
-          <div class="levels-row">
-            <div class="level-bubble current" onclick="App.openLevel('floresta',1)">B</div>
-            <div class="level-bubble locked">D</div>
-            <div class="level-bubble locked">F</div>
-            <div class="level-bubble locked">G</div>
-            <div class="level-bubble locked">H</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Savana -->
-      <div class="mapa-section savana">
-        <div class="section-header">
-          <div class="section-icon">🦁</div>
-          <div class="section-info">
-            <div class="section-name">Savana</div>
-            <div class="section-status">Aprenda no calor da savana</div>
-          </div>
-        </div>
-        <div class="section-body">
-          <div class="levels-row">
-            <div class="level-bubble locked">M</div>
-            <div class="level-bubble locked">N</div>
-            <div class="level-bubble locked">P</div>
-            <div class="level-bubble locked">R</div>
-            <div class="level-bubble locked">S</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Fundo do Mar -->
-      <div class="mapa-section mar">
-        <div class="section-header">
-          <div class="section-icon">🐠</div>
-          <div class="section-info">
-            <div class="section-name">Fundo do Mar</div>
-            <div class="section-status">Mergulhe no conhecimento</div>
-          </div>
-        </div>
-        <div class="section-body">
-          <div class="levels-row">
-            <div class="level-bubble locked">T</div>
-            <div class="level-bubble locked">V</div>
-            <div class="level-bubble locked">X</div>
-            <div class="level-bubble locked">Z</div>
-            <div class="level-bubble locked">+</div>
-          </div>
-        </div>
-      </div>
-
-    </main>
-
-    <!-- Bottom Nav -->
-    <nav class="bottom-nav">
-      <button class="nav-item active" onclick="App.setNav(this)">
-        <span class="nav-icon">🗺️</span> Mapa
-      </button>
-      <button class="nav-item" onclick="App.setNav(this)">
-        <span class="nav-icon">⭐</span> Conquistas
-      </button>
-      <button class="nav-item" onclick="App.setNav(this)">
-        <span class="nav-icon">📖</span> Livro do Explorador
-      </button>
-      <button class="nav-item" onclick="App.goTo('home')">
-        <span class="nav-icon">🚪</span> Sair
-      </button>
-    </nav>
-  </section>
-
-  <!-- =============================================
-       MODAL — Nível / Erro / Sucesso
-  ============================================= -->
-  <div class="modal-overlay" id="modal-overlay" onclick="App.closeModal(event)">
-    <div class="modal" id="modal-box">
-      <div class="modal-emoji" id="modal-emoji">🎉</div>
-      <h3 id="modal-title">Título</h3>
-      <p id="modal-desc">Descrição</p>
-      <div class="modal-btns">
-        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
-        <button class="btn-modal primary" id="modal-action" onclick="">Jogar!</button>
-      </div>
-    </div>
-  </div>
-
+  
   <script src="../assets/javascript/script.js"></script>
 </body>
 </html>

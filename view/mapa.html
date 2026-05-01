@@ -1,12 +1,18 @@
-<section id="page-mapa" class="page">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <title>Document</title>
+</head>
+<body>
+<section id="page-mapa" class="page active">
     <!-- Top Bar -->
     <header class="topbar">
       <div class="topbar-user">
         <div class="topbar-avatar" id="topbar-avatar">🧒</div>
         <span class="topbar-name" id="topbar-name">Explorador</span>
-      </div>
-      <div class="topbar-coins">
-        🪙 <span id="topbar-coins">0</span>
       </div>
       <button class="topbar-search" onclick="App.openSearch()">🔍</button>
     </header>
@@ -106,9 +112,6 @@
         <span class="nav-icon">🗺️</span> Mapa
       </button>
       <button class="nav-item" onclick="App.setNav(this)">
-        <span class="nav-icon">⭐</span> Conquistas
-      </button>
-      <button class="nav-item" onclick="App.setNav(this)">
         <span class="nav-icon">📖</span> Livro do Explorador
       </button>
       <button class="nav-item" onclick="App.goTo('home')">
@@ -116,3 +119,7 @@
       </button>
     </nav>
   </section>
+
+  <script src="../assets/javascript/script.js"></script>
+</body>
+</html>

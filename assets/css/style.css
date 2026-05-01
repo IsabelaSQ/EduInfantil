@@ -780,6 +780,32 @@
    .btn-modal.primary:hover { background: var(--green-dark); }
    .btn-modal.secondary { background: #f3f4f6; color: var(--text-dark); }
    .btn-modal.secondary:hover { background: #e5e7eb; }
+
+   /* ====================================================
+   ABA DE AVISO NO TOPO (BANNER)
+==================================================== */
+.top-banner {
+  position: fixed;
+  top: -100px; /* Começa escondida lá em cima */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50; /* Verde bonitão de sucesso */
+  color: white;
+  padding: 15px 30px;
+  border-radius: 0 0 15px 15px; /* Arredondado só embaixo */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: top 0.5s ease-in-out; /* Animação suave */
+  z-index: 9999; /* Fica na frente de tudo */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-banner.show {
+  top: 0; /* Desce e encosta no topo da tela */
+}
    
    /* =============================================
       UTILITY & ANIMATIONS

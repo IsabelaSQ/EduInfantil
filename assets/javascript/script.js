@@ -34,18 +34,21 @@ const App = (() => {
        NAVEGAÇÃO
     ==================================================== */
     function goTo(page) {
-      // Esconde todas as páginas
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  
-      const target = document.getElementById(`page-${page}`);
-      if (!target) return;
-      target.classList.add('active');
-      state.currentPage = page;
-  
-      // Ações ao entrar em cada página
-      if (page === 'exploradores') renderExplorers();
-      if (page === 'senha')        renderSenha();
-      if (page === 'mapa')         updateTopbar();
+      if (page === 'exploradores') {
+        window.location.href = 'exploradores.html';
+      } 
+      else if (page === 'senha') {
+        window.location.href = 'senha_bichos.html';
+      } 
+      else if (page === 'pais') {
+        window.location.href = 'pais.html';
+      }
+      else if (page === 'home') {
+        window.location.href = 'index.html';
+      }
+      else if (page === 'mapa') {
+        window.location.href = 'mapa.html';
+      }
     }
   
     /* ====================================================
@@ -71,6 +74,9 @@ const App = (() => {
       state.currentExplorer = exp;
       state.senhaCorreta    = exp.senha;
       state.senhaSequencia  = [];
+      
+      sessionStorage.setItem('explorerAtivo', exp.id);
+      
       goTo('senha');
     }
   
@@ -80,6 +86,30 @@ const App = (() => {
         null, 'OK');
     }
   
+    /* ====================================================
+       ABA DE TOPO (TOAST NOTIFICATION)
+    ==================================================== */
+    function mostrarAvisoTopo(emoji, mensagem, callback) {
+      // Cria a caixinha no HTML
+      const banner = document.createElement('div');
+      banner.className = 'top-banner';
+      banner.innerHTML = `<span>${emoji}</span> <span>${mensagem}</span>`;
+      
+      document.body.appendChild(banner);
+
+      // Faz a aba descer
+      setTimeout(() => banner.classList.add('show'), 10);
+
+      // Espera 2 segundos, sobe a aba de volta e vai pro mapa
+      setTimeout(() => {
+        banner.classList.remove('show'); // Sobe
+        setTimeout(() => {
+          banner.remove(); // Limpa do HTML
+          if (callback) callback(); // Vai pro mapa
+        }, 500); 
+      }, 2000); 
+    }
+
     /* ====================================================
        PÁGINA: SENHA DOS BICHINHOS
     ==================================================== */
@@ -158,14 +188,16 @@ const App = (() => {
     function verificarSenha() {
       const correta  = state.senhaCorreta;
       const escolhida = state.senhaSequencia;
-  
+
       const ok = correta.every((e, i) => e === escolhida[i]);
-  
+
       if (ok) {
         // Envia para o PHP via fetch
         salvarLogin(state.currentExplorer.id);
-        openModal('🎉', `Bem-vindo, ${state.currentExplorer.nome}!`,
-          'Senha correta! Vamos explorar!', () => goTo('mapa'), 'Jogar!');
+        
+        // Exibe a aba de sucesso e redireciona
+        mostrarAvisoTopo('🎉', `Senha correta, ${state.currentExplorer.nome}!`, () => goTo('mapa'));
+        
       } else {
         // Senha errada — shake + reset
         const slots = document.querySelectorAll('.slot');
@@ -176,7 +208,6 @@ const App = (() => {
         }, 700);
       }
     }
-  
     /* ====================================================
        PÁGINA: MAPA
     ==================================================== */
@@ -289,19 +320,35 @@ const App = (() => {
       }
     }
   
-    /* ====================================================
-       INIT
-    ==================================================== */
-    function init() {
-      // Tenta carregar exploradores do servidor
-      carregarExploradores();
-      goTo('home');
+    async function init() {
+      await carregarExploradores();
+      
+      if (document.getElementById('page-exploradores')) {
+        renderExplorers();
+      } 
+      else if (document.getElementById('page-senha')) {
+        const explorerId = sessionStorage.getItem('explorerAtivo');
+        if (explorerId) {
+          state.currentExplorer = explorers.find(e => e.id == explorerId);
+          state.senhaCorreta = state.currentExplorer.senha;
+          renderSenha();
+        } else {
+          goTo('exploradores'); 
+        }
+      } 
+      else if (document.getElementById('page-mapa')) {
+        const explorerId = sessionStorage.getItem('explorerAtivo');
+        if (explorerId) {
+          state.currentExplorer = explorers.find(e => e.id == explorerId);
+          updateTopbar();
+        } else {
+          goTo('exploradores');
+        }
+      }
     }
-  
-    // Inicia quando o DOM estiver pronto
+
     document.addEventListener('DOMContentLoaded', init);
-  
-    /* ---- API pública ---- */
+
     return {
       goTo,
       setLang,
@@ -313,7 +360,7 @@ const App = (() => {
       setNav,
       openModal,
       closeModal,
-      salvarProgresso,
+      salvarProgresso
     };
   
   })();

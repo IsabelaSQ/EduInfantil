@@ -1,7 +1,13 @@
-<!-- =============================================
-       PAGE 3 — SENHA DOS BICHINHOS
-  ============================================= -->
-  <section id="page-senha" class="page">
+<!DOCTYPE html>
+<html lang="pt.br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+  <section id="page-senha" class="page active">
     <div class="section-logo" style="margin-bottom:16px">
       <span style="font-size:2rem">🦉</span>
       <span>Safari Alpha</span>
@@ -26,3 +32,16 @@
       ← Voltar
     </button>
   </section>
+
+  <div id="modal-overlay" class="modal-overlay" onclick="App.closeModal(event)">
+    <div class="modal-content">
+      <div id="modal-emoji" style="font-size: 3rem; margin-bottom: 1rem;"></div>
+      <h2 id="modal-title"></h2>
+      <p id="modal-desc"></p>
+      <button id="modal-action" class="btn-novo"></button>
+    </div>
+  </div>
+  
+  <script src="../assets/javascript/script.js"></script>
+</body>
+</html>
