@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section id="page-ponte" class="page active">
+      <div class="white-card ponte-container">
+        <h2>Ponte dos Crocodilos</h2>
+        <p>Monte a palavra para o <span id="ponte-animal"></span> passar!</p>
+
+        <div id="ponte-slots" class="slots-container"></div>
+        <div id="ponte-crocs" class="croc-buttons"></div>
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="modal-overlay" onclick="App.closeModal(event)">
+    <div class="modal" id="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-emoji" id="modal-emoji">🎮</div>
+      <h3 id="modal-title">Título</h3>
+      <p id="modal-desc">Descrição</p>
+      <div class="modal-btns">
+        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
+        <button class="btn-modal primary" id="modal-action">Jogar!</button>
+      </div>
+    </div>
+  </div>
+  
+    <script src="../assets/javascript/script.js"></script>
+  </body>
+</html>

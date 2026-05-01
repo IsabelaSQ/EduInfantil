@@ -33,12 +33,16 @@
     </button>
   </section>
 
-  <div id="modal-overlay" class="modal-overlay" onclick="App.closeModal(event)">
-    <div class="modal-content">
-      <div id="modal-emoji" style="font-size: 3rem; margin-bottom: 1rem;"></div>
-      <h2 id="modal-title"></h2>
-      <p id="modal-desc"></p>
-      <button id="modal-action" class="btn-novo"></button>
+  <div class="modal-overlay" id="modal-overlay" onclick="App.closeModal(event)">
+    <div class="modal" id="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-emoji" id="modal-emoji">🎉</div>
+      <h3 id="modal-title">Título</h3>
+      <p id="modal-desc">Descrição</p>
+      
+      <div class="modal-btns">
+        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
+        <button class="btn-modal primary" id="modal-action">Jogar!</button>
+      </div>
     </div>
   </div>
   
