@@ -37,6 +37,9 @@ const App = (() => {
       if (page === 'exploradores') {
         window.location.href = 'exploradores.html';
       } 
+      else if (page === 'cadastro') {
+        window.location.href = 'cadastro.html';
+      }
       else if (page === 'senha') {
         window.location.href = 'senha_bichos.html';
       } 
@@ -44,7 +47,7 @@ const App = (() => {
         window.location.href = 'pais.html';
       }
       else if (page === 'home') {
-        window.location.href = 'index.html';
+        window.location.href = 'home.html';
       }
       else if (page === 'mapa') {
         window.location.href = 'mapa.html';
@@ -60,6 +63,9 @@ const App = (() => {
       }
       else if (page === 'livro') {
         window.location.href = 'livro.html';
+      }
+      else if (page === 'login') {
+        window.location.href = 'index.html';
       }
     }
   
@@ -93,9 +99,7 @@ const App = (() => {
     }
   
     function novoExplorador() {
-      openModal('➕', 'Novo Explorador',
-        'Funcionalidade disponível em breve!\nConecte ao servidor PHP para criar perfis.',
-        null, 'OK');
+      goTo('cadastro');
     }
   
     /* ====================================================

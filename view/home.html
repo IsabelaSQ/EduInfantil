@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safari Alpha — Alfabetização Bilíngue com Animais</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+  <section id="page-home" class="page active">
+    <div class="home-logo">
+      <span style="font-size:2.8rem">🦉</span>
+      <h1>Zoológico</h1>
+    </div>
+    <p class="home-subtitle">Alfabetização Bilíngue com Animais</p>
+
+    <div class="home-cards">
+      <!-- Portal dos Pais -->
+      <button class="home-card purple" onclick="App.goTo('pais')">
+        <span class="card-emoji">🦉</span>
+        <span class="card-title">Portal dos Pais</span>
+        <span class="card-desc">Acompanhe o progresso da criança</span>
+        <div class="card-dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+      </button>
+
+      <!-- Sou Explorador -->
+      <button class="home-card yellow" onclick="window.location.href='exploradores.html'">
+        <span class="card-emoji">🧭</span>
+        <span class="card-title">Sou Explorador!</span>
+        <span class="card-desc">Inicie uma aventura de aprendizado</span>
+        <div class="card-dots">
+          <span class="active"></span><span></span><span></span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="home-lang">
+      <button class="lang-btn active" id="lang-br" onclick="App.setLang('br')">
+        <span>🇧🇷</span> Português
+      </button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" id="lang-en" onclick="App.setLang('en')">
+        <span>En</span> English
+      </button>
+    </div>
+  </section>
+  
+  <script src="../assets/javascript/script.js"></script>
+</body>
+</html>

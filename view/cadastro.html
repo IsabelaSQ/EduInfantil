@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safari Alpha – Cadastro de Explorador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/cadastro.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- ===== TOPO ===== -->
+    <header class="app-header">
+      <button class="btn-back" id="btnBack" aria-label="Voltar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="logo">
+        <span class="logo-icon">🌿</span>
+        <span class="logo-text">Safari Alpha</span>
+      </div>
+      <div class="step-label" id="stepLabel">Passo 1 de 4</div>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- ===== CONTAINER DE TELAS ===== -->
+    <main class="screens-container" id="screensContainer">
+
+      <!-- TELA 1: Quem vai explorar? -->
+      <section class="screen active" id="screen1">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">✅</div>
+          <h1 class="screen-title">Quem vai explorar?</h1>
+          <p class="screen-subtitle">Precisamos de poucas informações para personalizar a jornada</p>
+
+          <div class="form-group">
+            <label class="form-label">Primeiro nome ou apelido da criança</label>
+            <input
+              type="text"
+              id="explorerName"
+              class="form-input"
+              placeholder="Ex: Ana, Pedro, Lara..."
+              maxlength="30"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quantos anos tem?</label>
+            <div class="age-grid" id="ageGrid">
+              <button class="age-btn" data-age="4">4</button>
+              <button class="age-btn" data-age="5">5</button>
+              <button class="age-btn" data-age="6">6</button>
+              <button class="age-btn" data-age="7">7</button>
+            </div>
+          </div>
+
+          <div class="error-msg" id="error1"></div>
+        </div>
+      </section>
+
+      <!-- TELA 2: Contrato de Exploração -->
+      <section class="screen" id="screen2">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">📋</div>
+          <h1 class="screen-title">Contrato de Exploração</h1>
+          <p class="screen-subtitle" id="screen2Subtitle">Configure o tempo e o idioma</p>
+
+          <div class="form-group">
+            <label class="form-label">Quanto tempo Isa pode explorar por dia?</label>
+            <div class="time-grid" id="timeGrid">
+              <button class="time-btn" data-time="15">
+                <span class="time-icon">⏰</span>
+                <span>15 min</span>
+              </button>
+              <button class="time-btn selected" data-time="30">
+                <span class="time-icon">⏰</span>
+                <span>30 min</span>
+              </button>
+              <button class="time-btn" data-time="45">
+                <span class="time-icon">⏰</span>
+                <span>45 min</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Como queremos ensinar os idiomas?</label>
+            <div class="radio-group" id="langGroup">
+              <label class="radio-card selected">
+                <input type="radio" name="lang" value="simultaneous" checked />
+                <div class="radio-content">
+                  <span class="radio-title">Igual em PT e EN</span>
+                  <span class="radio-desc">Ambos os idiomas ao mesmo tempo</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="lang" value="pt_first" />
+                <div class="radio-content">
+                  <span class="radio-title">PT primeiro, EN gradual</span>
+                  <span class="radio-desc">Português principal, inglês aos poucos</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="lang" value="en_first" />
+                <div class="radio-content">
+                  <span class="radio-title">EN primeiro, PT gradual</span>
+                  <span class="radio-desc">Inglês à frente, português de suporte</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+            </div>
+          </div>
+
+          <p class="info-note">⚠️ O Safari Alpha usa Interlanguage, desenvolvido por 2–5 anos. Com 30 min/dia, Isa terá aproximadamente 15 atividades.</p>
+        </div>
+      </section>
+
+      <!-- TELA 3: O Nascimento do Explorador -->
+      <section class="screen" id="screen3">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">🌟</div>
+          <h1 class="screen-title">O Nascimento do Explorador</h1>
+          <p class="screen-subtitle">Olá! Um novo explorador chega! Como vai ser no nosso Safari?</p>
+
+          <div class="character-grid" id="characterGrid">
+            <button class="char-btn" data-char="Explorador" data-emoji="🧑‍🌾">
+              <div class="char-avatar">🧑‍🌾</div>
+              <span class="char-name">Explorador</span>
+            </button>
+            <button class="char-btn" data-char="Exploradora" data-emoji="👧">
+              <div class="char-avatar">👧</div>
+              <span class="char-name">Exploradora</span>
+            </button>
+            <button class="char-btn" data-char="Leãozinho" data-emoji="🦁">
+              <div class="char-avatar">🦁</div>
+              <span class="char-name">Leãozinho</span>
+            </button>
+            <button class="char-btn" data-char="Elefantinho" data-emoji="🐘">
+              <div class="char-avatar selected-anim">🐘</div>
+              <span class="char-name">Elefantinho</span>
+            </button>
+            <button class="char-btn" data-char="Macaquinho" data-emoji="🐒">
+              <div class="char-avatar">🐒</div>
+              <span class="char-name">Macaquinho</span>
+            </button>
+            <button class="char-btn" data-char="Girafinha" data-emoji="🦒">
+              <div class="char-avatar">🦒</div>
+              <span class="char-name">Girafinha</span>
+            </button>
+          </div>
+
+          <div class="error-msg" id="error3"></div>
+        </div>
+      </section>
+
+      <!-- TELA 4: O Provador do Safari -->
+      <section class="screen" id="screen4">
+        <div class="screen-inner">
+          <h1 class="screen-title">O Provador do Safari</h1>
+          <p class="screen-subtitle">Todas as roupas são deste lado!</p>
+
+          <div class="provador-preview">
+            <div class="avatar-frame" id="avatarPreview">
+              <div class="avatar-big" id="avatarEmoji">🐘</div>
+              <div class="avatar-badge" id="avatarBadge"></div>
+            </div>
+            <p class="avatar-label" id="avatarLabel">Isa — Elefantinho</p>
+          </div>
+
+          <div class="customizer">
+            <div class="custom-group">
+              <label class="custom-label">Cor do pelo</label>
+              <div class="color-row" id="hairColors">
+                <button class="color-dot selected" data-type="hair" data-color="#F5C542" style="background:#F5C542"></button>
+                <button class="color-dot" data-type="hair" data-color="#8B5E3C" style="background:#8B5E3C"></button>
+                <button class="color-dot" data-type="hair" data-color="#2C2C2C" style="background:#2C2C2C"></button>
+                <button class="color-dot" data-type="hair" data-color="#AAAAAA" style="background:#AAAAAA"></button>
+              </div>
+            </div>
+
+            <div class="custom-group">
+              <label class="custom-label">Cor do figurino</label>
+              <div class="color-row" id="outfitColors">
+                <button class="color-dot selected" data-type="outfit" data-color="#4CAF82" style="background:#4CAF82"></button>
+                <button class="color-dot" data-type="outfit" data-color="#E87C3E" style="background:#E87C3E"></button>
+                <button class="color-dot" data-type="outfit" data-color="#E95B8C" style="background:#E95B8C"></button>
+                <button class="color-dot" data-type="outfit" data-color="#6AB4D8" style="background:#6AB4D8"></button>
+              </div>
+            </div>
+
+            <div class="custom-group">
+              <label class="custom-label">Acessório especial</label>
+              <div class="accessories-grid" id="accessoriesGrid">
+                <button class="acc-btn selected" data-acc="Nenhum">
+                  <span class="acc-icon">✖️</span>
+                  <span class="acc-name">Nenhum</span>
+                </button>
+                <button class="acc-btn" data-acc="Binóculos">
+                  <span class="acc-icon">🔭</span>
+                  <span class="acc-name">Binóculos</span>
+                </button>
+                <button class="acc-btn" data-acc="Chapéu de Aba">
+                  <span class="acc-icon">🎩</span>
+                  <span class="acc-name">Chapéu de Aba</span>
+                </button>
+                <button class="acc-btn" data-acc="Mochila">
+                  <span class="acc-icon">🎒</span>
+                  <span class="acc-name">Mochila</span>
+                </button>
+                <button class="acc-btn" data-acc="Lanterninha">
+                  <span class="acc-icon">🔦</span>
+                  <span class="acc-name">Lanterninha</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TELA 5: Sucesso / Incrível! -->
+      <section class="screen" id="screen5">
+        <div class="screen-inner success-inner">
+          <div class="success-avatar" id="successAvatar">🐘</div>
+          <div class="confetti-burst" id="confettiBurst"></div>
+
+          <h1 class="success-title" id="successTitle">Incrível, Isa!</h1>
+          <p class="success-sub">Você está pronto para a aventura!<br/>Sua jornada começa agora.</p>
+
+          <div class="summary-card">
+            <h3 class="summary-heading">Resumo de Jornada</h3>
+            <ul class="summary-list" id="summaryList">
+              <li><span class="sum-icon">🔍</span> <span id="sumName">Explorador: Isa (6 anos)</span></li>
+              <li><span class="sum-icon">⏱️</span> <span id="sumTime">Tempo diário: 30 minutos</span></li>
+              <li><span class="sum-icon">🌐</span> <span id="sumLang">Idiomas: Igual em PT e EN</span></li>
+              <li><span class="sum-icon">🎭</span> <span id="sumChar">Personagem: Elefantinho</span></li>
+            </ul>
+          </div>
+
+          <button class="btn-start" id="btnStart">
+            🌿 Começar a Aventura!
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== RODAPÉ / BOTÕES ===== -->
+    <footer class="app-footer" id="appFooter">
+      <button class="btn-secondary" id="btnPrev">← Voltar</button>
+      <button class="btn-primary" id="btnNext">Continuar →</button>
+    </footer>
+  </div>
+
+  <!-- Overlay de confete -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="../assets/javascript/app.js"></script>
+</body>
+</html>
