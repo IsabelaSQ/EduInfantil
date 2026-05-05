@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <title>Memória da Floresta – Safari Alpha</title>
+  <style>
+    .memory-board {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 420px;
+      margin: 20px auto;
+      justify-content: center;
+    }
+    .memory-card {
+      width: 80px;
+      height: 80px;
+      margin: 6px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      cursor: pointer;
+      background: #b7d7e8;
+      transition: background 0.3s, transform 0.2s;
+      user-select: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .memory-card.flipped {
+      background: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .memory-card.matched {
+      background: #a5d6a7;
+      cursor: default;
+      pointer-events: none;
+    }
+    .memory-card .content {
+      display: none;
+    }
+    .memory-card.flipped .content,
+    .memory-card.matched .content {
+      display: block;
+    }
+    .btn-back {
+      margin: 20px auto;
+      display: block;
+      padding: 10px 20px;
+      background: #f58220;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Responsivo */
+    @media (max-width: 480px) {
+      .memory-card {
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+        margin: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="page-memoria" class="page active" style="text-align:center;">
+    <h2>🌳 Memória da Floresta</h2>
+    <p id="faseDescricao">Encontre os pares!</p>
+    <div class="memory-board" id="memoryBoard"></div>
+    <button class="btn-back" onclick="App.goTo('mapa')">← Voltar ao Mapa</button>
+  </section>
+
+  <!-- Modal padronizado -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;" onclick="App.closeModal()">
+    <div class="modal" id="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-emoji" id="modal-emoji">🎉</div>
+      <h3 id="modal-title">Título</h3>
+      <p id="modal-desc">Descrição</p>
+      <div class="modal-btns">
+        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
+        <button class="btn-modal primary" id="modal-action">Jogar!</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/javascript/script.js"></script>
+  <script>
+    // ---- Mapeamento das fases ----
+    const fases = {
+      1: { letra: 'B', animal: '🐝', nome: 'Abelha' },
+      2: { letra: 'D', animal: '🐬', nome: 'Golfinho' },
+      3: { letra: 'F', animal: '🦊', nome: 'Raposa' },
+      4: { letra: 'G', animal: '🦒', nome: 'Girafa' },
+      5: { letra: 'H', animal: '🦔', nome: 'Ouriço' }
+    };
+
+    // Vogais para complementar os pares
+    const vogais = [
+      { letra: 'A', animal: '🐝', nome: 'Abelha' },
+      { letra: 'E', animal: '🐘', nome: 'Elefante' },
+      { letra: 'I', animal: '🦎', nome: 'Iguana' },
+      { letra: 'O', animal: '🐑', nome: 'Ovelha' },
+      { letra: 'U', animal: '🐻', nome: 'Urso' }
+    ];
+
+    let cards = [];
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let lockBoard = false;
+
+    const level = parseInt(sessionStorage.getItem('currentLevel') || '1');
+    const faseAtual = fases[level];
+
+    if (!faseAtual) {
+      alert('Fase inválida! Voltando ao mapa.');
+      window.location.href = 'mapa.html';
+    }
+
+    document.getElementById('faseDescricao').textContent = `Fase ${level}: Letra ${faseAtual.letra} — ${faseAtual.nome}`;
+
+    // Monta os pares: o da fase + três vogais aleatórias (evitando repetir a letra da fase)
+    const vogaisDisponiveis = vogais.filter(v => v.letra !== faseAtual.letra);
+    const vogaisSelecionadas = shuffleArray(vogaisDisponiveis).slice(0, 3);
+    const pares = [
+      { letra: faseAtual.letra, animal: faseAtual.animal },
+      ...vogaisSelecionadas.map(v => ({ letra: v.letra, animal: v.animal }))
+    ];
+
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function createBoard() {
+      const board = document.getElementById('memoryBoard');
+      board.innerHTML = '';
+      cards = [];
+      matchedPairs = 0;
+      flippedCards = [];
+      lockBoard = false;
+
+      pares.forEach(par => {
+        cards.push({ type: 'letra', value: par.letra, emoji: par.letra, pair: par.letra });
+        cards.push({ type: 'animal', value: par.letra, emoji: par.animal, pair: par.letra });
+      });
+      shuffleArray(cards);
+
+      cards.forEach((card, index) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'memory-card';
+        cardEl.dataset.index = index;
+        cardEl.dataset.pair = card.pair;
+        cardEl.dataset.type = card.type;
+        cardEl.innerHTML = `<span class="content">${card.emoji}</span>`;
+        cardEl.addEventListener('click', () => flipCard(cardEl, card));
+        board.appendChild(cardEl);
+      });
+    }
+
+    function flipCard(cardEl, card) {
+      if (lockBoard) return;
+      if (cardEl.classList.contains('flipped') || cardEl.classList.contains('matched')) return;
+      if (flippedCards.length === 2) return;
+
+      cardEl.classList.add('flipped');
+      flippedCards.push({ el: cardEl, data: card });
+
+      if (flippedCards.length === 2) {
+        lockBoard = true;
+        const [first, second] = flippedCards;
+        if (first.data.pair === second.data.pair && first.data.type !== second.data.type) {
+          // Par encontrado
+          first.el.classList.add('matched');
+          second.el.classList.add('matched');
+          matchedPairs++;
+          flippedCards = [];
+          lockBoard = false;
+
+          if (matchedPairs === pares.length) {
+            setTimeout(() => {
+              const explorerId = sessionStorage.getItem('explorerAtivo');
+              if (explorerId && App && App.salvarProgresso) {
+                App.salvarProgresso(Number(explorerId), 'floresta', level, 1);
+                App.openModal('🎉', 'Parabéns!', `Você completou a memória da letra ${faseAtual.letra}!`, () => {
+                  window.location.href = 'mapa.html';
+                }, 'Voltar ao Mapa');
+              } else {
+                alert('Parabéns! Você completou a memória. Mas o progresso não pôde ser salvo.');
+              }
+            }, 600);
+          }
+        } else {
+          // Não combinou
+          setTimeout(() => {
+            first.el.classList.remove('flipped');
+            second.el.classList.remove('flipped');
+            flippedCards = [];
+            lockBoard = false;
+          }, 800);
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', createBoard);
+  </script>
+</body>
+</html>

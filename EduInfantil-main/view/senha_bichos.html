@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/style.css"> <!-- ajuste se necessário -->
+    <title>Safari Alpha - Senha</title>
+</head>
+<body>
+  <section id="page-senha" class="page active">
+    <div class="section-logo" style="margin-bottom:16px">
+      <span style="font-size:2rem">🦉</span>
+      <span>Safari Alpha</span>
+    </div>
+
+    <h2 id="senhaTitle">Senha dos Bichinhos</h2>
+    <p class="subtitle" id="senhaSubtitle">Escolha seus 3 bichinhos na ordem certa!</p>
+
+    <!-- Slots da senha -->
+    <div class="senha-slots" id="senha-slots">
+      <div class="slot" data-index="0" onclick="App.removeSlot(0)">❓</div>
+      <div class="slot" data-index="1" onclick="App.removeSlot(1)">❓</div>
+      <div class="slot" data-index="2" onclick="App.removeSlot(2)">❓</div>
+    </div>
+
+    <!-- Grade de animais (gerada via JS) -->
+    <div class="animais-grid" id="animais-grid"></div>
+
+    <button class="btn-voltar" onclick="App.goTo('exploradores')">
+      ← Voltar
+    </button>
+  </section>
+
+  <!-- Modal (oculto por padrão) -->
+  <div class="modal-overlay" id="modal-overlay" style="display:none;" onclick="App.closeModal()">
+    <div class="modal" id="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-emoji" id="modal-emoji">🎉</div>
+      <h3 id="modal-title">Título</h3>
+      <p id="modal-desc">Descrição</p>
+      
+      <div class="modal-btns">
+        <button class="btn-modal secondary" onclick="App.closeModal()">Fechar</button>
+        <button class="btn-modal primary" id="modal-action">Jogar!</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="../assets/javascript/script.js"></script>
+</body>
+</html>

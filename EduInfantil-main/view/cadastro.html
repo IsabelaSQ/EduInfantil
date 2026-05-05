@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Safari Alpha – Cadastro de Explorador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/cadastro.css" />
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- ===== TOPO ===== -->
+    <header class="app-header">
+      <button class="btn-back" id="btnBack" aria-label="Voltar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="logo">
+        <span class="logo-icon">🌿</span>
+        <span class="logo-text">Safari Alpha</span>
+      </div>
+      <div class="step-label" id="stepLabel">Passo 1 de 5</div>
+    </header>
+
+    <!-- Progress bar -->
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- ===== CONTAINER DE TELAS ===== -->
+    <main class="screens-container" id="screensContainer">
+
+      <!-- TELA 1: Quem vai explorar? -->
+      <section class="screen active" id="screen1">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">✅</div>
+          <h1 class="screen-title">Quem vai explorar?</h1>
+          <p class="screen-subtitle">Precisamos de poucas informações para personalizar a jornada</p>
+
+          <div class="form-group">
+            <label class="form-label">Primeiro nome ou apelido da criança</label>
+            <input
+              type="text"
+              id="explorerName"
+              class="form-input"
+              placeholder="Ex: Ana, Pedro, Lara..."
+              maxlength="30"
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quantos anos tem?</label>
+            <div class="age-grid" id="ageGrid">
+              <button class="age-btn" data-age="4">4</button>
+              <button class="age-btn" data-age="5">5</button>
+              <button class="age-btn" data-age="6">6</button>
+              <button class="age-btn" data-age="7">7</button>
+            </div>
+          </div>
+
+          <div class="error-msg" id="error1"></div>
+        </div>
+      </section>
+
+      <!-- TELA 2: Contrato de Exploração -->
+      <section class="screen" id="screen2">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">📋</div>
+          <h1 class="screen-title">Contrato de Exploração</h1>
+          <p class="screen-subtitle" id="screen2Subtitle">Configure o tempo e o idioma</p>
+
+          <div class="form-group">
+            <label class="form-label">Quanto tempo pode explorar por dia?</label>
+            <div class="time-grid" id="timeGrid">
+              <button class="time-btn" data-time="15">
+                <span class="time-icon">⏰</span>
+                <span>15 min</span>
+              </button>
+              <button class="time-btn selected" data-time="30">
+                <span class="time-icon">⏰</span>
+                <span>30 min</span>
+              </button>
+              <button class="time-btn" data-time="45">
+                <span class="time-icon">⏰</span>
+                <span>45 min</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Como queremos ensinar os idiomas?</label>
+            <div class="radio-group" id="langGroup">
+              <label class="radio-card selected">
+                <input type="radio" name="lang" value="simultaneous" checked />
+                <div class="radio-content">
+                  <span class="radio-title">Igual em PT e EN</span>
+                  <span class="radio-desc">Ambos os idiomas ao mesmo tempo</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="lang" value="pt_first" />
+                <div class="radio-content">
+                  <span class="radio-title">PT primeiro, EN gradual</span>
+                  <span class="radio-desc">Português principal, inglês aos poucos</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="lang" value="en_first" />
+                <div class="radio-content">
+                  <span class="radio-title">EN primeiro, PT gradual</span>
+                  <span class="radio-desc">Inglês à frente, português de suporte</span>
+                </div>
+                <span class="radio-check">✓</span>
+              </label>
+            </div>
+          </div>
+
+          <p class="info-note">⚠️ O Safari Alpha usa Interlanguage, desenvolvido para 2–5 anos. Com 30 min/dia, serão aproximadamente 15 atividades.</p>
+        </div>
+      </section>
+
+      <!-- TELA 3: O Nascimento do Explorador -->
+      <section class="screen" id="screen3">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">🌟</div>
+          <h1 class="screen-title">O Nascimento do Explorador</h1>
+          <p class="screen-subtitle">Olá! Um novo explorador chega! Como vai ser no nosso Safari?</p>
+
+          <div class="character-grid" id="characterGrid">
+            <button class="char-btn" data-char="Explorador" data-emoji="🧑‍🌾">
+              <div class="char-avatar">🧑‍🌾</div>
+              <span class="char-name">Explorador</span>
+            </button>
+            <button class="char-btn" data-char="Exploradora" data-emoji="👧">
+              <div class="char-avatar">👧</div>
+              <span class="char-name">Exploradora</span>
+            </button>
+            <button class="char-btn" data-char="Leãozinho" data-emoji="🦁">
+              <div class="char-avatar">🦁</div>
+              <span class="char-name">Leãozinho</span>
+            </button>
+            <button class="char-btn" data-char="Elefantinho" data-emoji="🐘">
+              <div class="char-avatar selected-anim">🐘</div>
+              <span class="char-name">Elefantinho</span>
+            </button>
+            <button class="char-btn" data-char="Macaquinho" data-emoji="🐒">
+              <div class="char-avatar">🐒</div>
+              <span class="char-name">Macaquinho</span>
+            </button>
+            <button class="char-btn" data-char="Girafinha" data-emoji="🦒">
+              <div class="char-avatar">🦒</div>
+              <span class="char-name">Girafinha</span>
+            </button>
+          </div>
+
+          <div class="error-msg" id="error3"></div>
+        </div>
+      </section>
+
+      <!-- TELA 4: O Provador do Safari -->
+      <section class="screen" id="screen4">
+        <div class="screen-inner">
+          <h1 class="screen-title">O Provador do Safari</h1>
+          <p class="screen-subtitle">Todas as roupas são deste lado!</p>
+
+          <div class="provador-preview">
+            <div class="avatar-frame" id="avatarPreview">
+              <div class="avatar-big" id="avatarEmoji">🐘</div>
+              <div class="avatar-badge" id="avatarBadge"></div>
+            </div>
+            <p class="avatar-label" id="avatarLabel">Elefantinho</p>
+          </div>
+
+          <div class="customizer">
+            <div class="custom-group">
+              <label class="custom-label">Cor do pelo</label>
+              <div class="color-row" id="hairColors">
+                <button class="color-dot selected" data-type="hair" data-color="#F5C542" style="background:#F5C542"></button>
+                <button class="color-dot" data-type="hair" data-color="#8B5E3C" style="background:#8B5E3C"></button>
+                <button class="color-dot" data-type="hair" data-color="#2C2C2C" style="background:#2C2C2C"></button>
+                <button class="color-dot" data-type="hair" data-color="#AAAAAA" style="background:#AAAAAA"></button>
+              </div>
+            </div>
+
+            <div class="custom-group">
+              <label class="custom-label">Cor do figurino</label>
+              <div class="color-row" id="outfitColors">
+                <button class="color-dot selected" data-type="outfit" data-color="#4CAF82" style="background:#4CAF82"></button>
+                <button class="color-dot" data-type="outfit" data-color="#E87C3E" style="background:#E87C3E"></button>
+                <button class="color-dot" data-type="outfit" data-color="#E95B8C" style="background:#E95B8C"></button>
+                <button class="color-dot" data-type="outfit" data-color="#6AB4D8" style="background:#6AB4D8"></button>
+              </div>
+            </div>
+
+            <div class="custom-group">
+              <label class="custom-label">Acessório especial</label>
+              <div class="accessories-grid" id="accessoriesGrid">
+                <button class="acc-btn selected" data-acc="Nenhum">
+                  <span class="acc-icon">✖️</span>
+                  <span class="acc-name">Nenhum</span>
+                </button>
+                <button class="acc-btn" data-acc="Binóculos">
+                  <span class="acc-icon">🔭</span>
+                  <span class="acc-name">Binóculos</span>
+                </button>
+                <button class="acc-btn" data-acc="Chapéu de Aba">
+                  <span class="acc-icon">🎩</span>
+                  <span class="acc-name">Chapéu de Aba</span>
+                </button>
+                <button class="acc-btn" data-acc="Mochila">
+                  <span class="acc-icon">🎒</span>
+                  <span class="acc-name">Mochila</span>
+                </button>
+                <button class="acc-btn" data-acc="Lanterninha">
+                  <span class="acc-icon">🔦</span>
+                  <span class="acc-name">Lanterninha</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TELA 5: Senha dos Bichinhos -->
+      <section class="screen" id="screen5">
+        <div class="screen-inner">
+          <div class="hero-icon bounce">🔐</div>
+          <h1 class="screen-title">Senha dos Bichinhos</h1>
+          <p class="screen-subtitle">Escolha 3 bichinhos na ordem certa para proteger este explorador.</p>
+
+          <div class="password-slots" id="password-slots">
+            <div class="slot" data-index="0">❓</div>
+            <div class="slot" data-index="1">❓</div>
+            <div class="slot" data-index="2">❓</div>
+          </div>
+
+          <div class="animal-grid" id="password-animais-grid"></div>
+
+          <div class="error-msg" id="error5"></div>
+        </div>
+      </section>
+
+      <!-- TELA 6: Sucesso / Incrível! -->
+      <section class="screen" id="screen6">
+        <div class="screen-inner success-inner">
+          <div class="success-avatar" id="successAvatar">🐘</div>
+          <div class="confetti-burst" id="confettiBurst"></div>
+
+          <h1 class="success-title" id="successTitle">Incrível!</h1>
+          <p class="success-sub">Sua senha está salva e sua jornada começa agora.</p>
+
+          <div class="summary-card">
+            <h3 class="summary-heading">Resumo de Jornada</h3>
+            <ul class="summary-list" id="summaryList">
+              <li><span class="sum-icon">🔍</span> <span id="sumName">Explorador: ...</span></li>
+              <li><span class="sum-icon">⏱️</span> <span id="sumTime">Tempo diário: 30 minutos</span></li>
+              <li><span class="sum-icon">🌐</span> <span id="sumLang">Idiomas: Igual em PT e EN</span></li>
+              <li><span class="sum-icon">🎭</span> <span id="sumChar">Personagem: Elefantinho</span></li>
+            </ul>
+          </div>
+
+          <button class="btn-start" id="btnStart">
+            🐾 Começar Safari
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== RODAPÉ / BOTÕES ===== -->
+    <footer class="app-footer" id="appFooter">
+      <button class="btn-secondary" id="btnPrev">← Voltar</button>
+      <button class="btn-primary" id="btnNext">Continuar →</button>
+    </footer>
+  </div>
+
+  <!-- Overlay de confete -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ===== LÓGICA DO CADASTRO (SUBSTITUI app.js) ===== -->
+  <script>
+    (function() {
+      // Estado local do cadastro
+      let currentStep = 1;
+      const maxSteps = 5;  // até tela da senha
+      const explorer = {
+        name: '',
+        age: null,
+        time: '30',
+        lang: 'simultaneous',
+        character: 'Elefantinho',
+        emoji: '🐘',
+        hair: '#F5C542',
+        outfit: '#4CAF82',
+        accessory: 'Nenhum',
+        password: []  // array de emojis
+      };
+
+      // Lista de animais disponíveis para a senha
+      const animais = [
+        { emoji: '🦁', label: 'Leão' },
+        { emoji: '🐘', label: 'Elefante' },
+        { emoji: '🐒', label: 'Macaco' },
+        { emoji: '🦒', label: 'Girafa' },
+        { emoji: '🦓', label: 'Zebra' },
+        { emoji: '🐯', label: 'Tigre' },
+        { emoji: '🐼', label: 'Panda' },
+        { emoji: '🐨', label: 'Coala' },
+        { emoji: '🐰', label: 'Coelho' }
+      ];
+
+      // Elementos DOM
+      const screens = document.querySelectorAll('.screen');
+      const stepLabel = document.getElementById('stepLabel');
+      const progressFill = document.getElementById('progressFill');
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const btnBack = document.getElementById('btnBack');
+      const explorerNameInput = document.getElementById('explorerName');
+      const passwordSlots = document.querySelectorAll('#password-slots .slot');
+      const passwordGrid = document.getElementById('password-animais-grid');
+      const error5 = document.getElementById('error5');
+      const error1 = document.getElementById('error1');
+
+      // Função para mostrar uma tela específica
+      function showScreen(step) {
+        screens.forEach(s => s.classList.remove('active'));
+        document.getElementById(`screen${step}`).classList.add('active');
+        stepLabel.textContent = `Passo ${step} de 5`;
+        progressFill.style.width = `${(step / maxSteps) * 100}%`;
+
+        btnPrev.style.visibility = step === 1 ? 'hidden' : 'visible';
+        if (step === maxSteps) {
+          btnNext.textContent = 'Finalizar →';
+        } else {
+          btnNext.textContent = 'Continuar →';
+        }
+
+        // Se for a tela 5, gerar os botões dos animais
+        if (step === 5) {
+          renderPasswordAnimals();
+          resetPasswordSlots();
+        }
+      }
+
+      // Renderiza os animais na tela 5
+      function renderPasswordAnimals() {
+        passwordGrid.innerHTML = '';
+        animais.forEach(a => {
+          const btn = document.createElement('button');
+          btn.className = 'animal-btn';
+          btn.dataset.emoji = a.emoji;
+          btn.innerHTML = `
+            <span class="animal-emoji">${a.emoji}</span>
+            <span class="animal-label">${a.label}</span>
+          `;
+          btn.addEventListener('click', () => chooseAnimal(a.emoji, btn));
+          passwordGrid.appendChild(btn);
+        });
+      }
+
+      function resetPasswordSlots() {
+        explorer.password = [];
+        passwordSlots.forEach(s => {
+          s.textContent = '❓';
+          s.classList.remove('filled');
+        });
+        error5.textContent = '';
+        enableAllAnimalButtons();
+      }
+
+      function chooseAnimal(emoji, btn) {
+        if (explorer.password.length >= 3) return;
+        if (btn.classList.contains('selected')) return;
+
+        explorer.password.push(emoji);
+        btn.classList.add('selected');
+        btn.disabled = true;  // evita re-seleção
+
+        const idx = explorer.password.length - 1;
+        passwordSlots[idx].textContent = emoji;
+        passwordSlots[idx].classList.add('filled');
+
+        if (explorer.password.length === 3) {
+          // Pequena pausa para feedback visual
+          setTimeout(() => {
+            // O botão "Finalizar" estará habilitado
+          }, 300);
+        }
+      }
+
+      function enableAllAnimalButtons() {
+        document.querySelectorAll('#password-animais-grid .animal-btn').forEach(btn => {
+          btn.classList.remove('selected');
+          btn.disabled = false;
+        });
+      }
+
+      // Validações de cada passo
+      function validateStep(step) {
+        if (step === 1) {
+          const name = explorerNameInput.value.trim();
+          if (name.length < 2) {
+            error1.textContent = 'Por favor, digite um nome com pelo menos 2 letras.';
+            return false;
+          }
+          explorer.name = name;
+          const selectedAge = document.querySelector('.age-btn.selected');
+          if (!selectedAge) {
+            error1.textContent = 'Selecione a idade.';
+            return false;
+          }
+          explorer.age = selectedAge.dataset.age;
+          error1.textContent = '';
+          return true;
+        }
+        if (step === 2) {
+          const selectedTime = document.querySelector('.time-btn.selected');
+          if (selectedTime) explorer.time = selectedTime.dataset.time;
+          const selectedLang = document.querySelector('input[name="lang"]:checked');
+          if (selectedLang) explorer.lang = selectedLang.value;
+          return true;
+        }
+        if (step === 3) {
+          const selectedChar = document.querySelector('.char-btn.selected');
+          if (!selectedChar) {
+            document.getElementById('error3').textContent = 'Escolha um personagem.';
+            return false;
+          }
+          explorer.character = selectedChar.dataset.char;
+          explorer.emoji = selectedChar.dataset.emoji;
+          document.getElementById('error3').textContent = '';
+          return true;
+        }
+        if (step === 5) {
+          if (explorer.password.length !== 3) {
+            error5.textContent = 'Escolha 3 bichinhos para a senha.';
+            return false;
+          }
+          error5.textContent = '';
+          return true;
+        }
+        return true; // step 4 não precisa de validação obrigatória
+      }
+
+      // Função para finalizar e criar explorador via API
+      async function finalizarCadastro() {
+        if (!validateStep(5)) return;
+
+        // Desabilita botão para evitar duplo clique
+        btnNext.disabled = true;
+        btnNext.textContent = 'Salvando...';
+
+        try {
+          const response = await fetch('/view/api.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'criar_explorador',
+              nome: explorer.name,
+              emoji: explorer.emoji,
+              senha: explorer.password
+            })
+          });
+
+          const data = await response.json();
+          if (!response.ok || !data.ok) {
+            throw new Error(data.erro || 'Erro ao criar explorador');
+          }
+
+          // Armazena o ID do explorador na sessão
+          sessionStorage.setItem('explorerAtivo', data.id);
+          
+          // Mostrar tela de sucesso (6)
+          showScreen(6);
+          updateSuccessScreen();
+          // Esconder footer (botões voltar/continuar)
+          document.getElementById('appFooter').style.display = 'none';
+
+          // Configurar botão "Começar Safari"
+          document.getElementById('btnStart').addEventListener('click', () => {
+            window.location.href = 'mapa.html';
+          });
+
+        } catch (error) {
+          error5.textContent = 'Erro ao criar explorador: ' + error.message;
+          btnNext.disabled = false;
+          btnNext.textContent = 'Finalizar →';
+        }
+      }
+
+      function updateSuccessScreen() {
+        document.getElementById('successAvatar').textContent = explorer.emoji;
+        document.getElementById('successTitle').textContent = `Incrível, ${explorer.name}!`;
+        document.getElementById('sumName').textContent = `Explorador: ${explorer.name} (${explorer.age} anos)`;
+        document.getElementById('sumTime').textContent = `Tempo diário: ${explorer.time} minutos`;
+        const langMap = {
+          simultaneous: 'Igual em PT e EN',
+          pt_first: 'PT primeiro, EN gradual',
+          en_first: 'EN primeiro, PT gradual'
+        };
+        document.getElementById('sumLang').textContent = `Idiomas: ${langMap[explorer.lang] || explorer.lang}`;
+        document.getElementById('sumChar').textContent = `Personagem: ${explorer.character}`;
+      }
+
+      // Event listeners para navegação
+      btnNext.addEventListener('click', () => {
+        if (!validateStep(currentStep)) return;
+
+        if (currentStep === maxSteps) {
+          // Último passo (tela 5 da senha) - finalizar
+          finalizarCadastro();
+          return;
+        }
+
+        if (currentStep < maxSteps) {
+          currentStep++;
+          showScreen(currentStep);
+        }
+      });
+
+      btnPrev.addEventListener('click', () => {
+        if (currentStep > 1) {
+          currentStep--;
+          showScreen(currentStep);
+        }
+      });
+
+      btnBack.addEventListener('click', () => {
+        window.location.href = 'exploradores.html';
+      });
+
+      // Eventos das telas (seleção de botões)
+      // Tela 1: idade
+      document.querySelectorAll('.age-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          explorer.age = btn.dataset.age;
+        });
+      });
+
+      // Tela 3: personagem
+      document.querySelectorAll('.char-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.char-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          explorer.character = btn.dataset.char;
+          explorer.emoji = btn.dataset.emoji;
+        });
+      });
+
+      // Tela 4: customizações (cores e acessórios)
+      document.querySelectorAll('.color-dot').forEach(dot => {
+        dot.addEventListener('click', () => {
+          const type = dot.dataset.type;
+          document.querySelectorAll(`.color-dot[data-type="${type}"]`).forEach(d => d.classList.remove('selected'));
+          dot.classList.add('selected');
+          if (type === 'hair') explorer.hair = dot.dataset.color;
+          if (type === 'outfit') explorer.outfit = dot.dataset.color;
+          // Nota: a cor não afeta o emoji, mas fica registrada
+        });
+      });
+
+      document.querySelectorAll('.acc-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.acc-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          explorer.accessory = btn.dataset.acc;
+        });
+      });
+
+      // Tela 2: tempo e idioma
+      document.querySelectorAll('.time-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          explorer.time = btn.dataset.time;
+        });
+      });
+
+      // Inicia na tela 1
+      showScreen(1);
+    })();
+  </script>
+</body>
+</html>

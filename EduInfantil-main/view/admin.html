@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Safari Alpha</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; background: #f4f1e1; padding: 20px; }
+    .hidden { display: none !important; }
+    .login-box, .admin-panel {
+      max-width: 900px; margin: 0 auto; background: #fff; border-radius: 16px;
+      padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .login-box { text-align: center; margin-top: 60px; }
+    .login-box input { padding: 10px; font-size: 1rem; margin: 10px 0; width: 250px; }
+    .btn { padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; }
+    .btn-primary { background: #f58220; color: white; }
+    .btn-danger { background: #e74c3c; color: white; }
+    .btn-small { padding: 6px 10px; font-size: 0.85rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { text-align: left; padding: 12px 8px; border-bottom: 1px solid #ddd; }
+    th { background: #f9f6e8; }
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .error { color: red; margin-top: 8px; }
+    .success { color: green; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <!-- Tela de login -->
+  <div id="loginScreen" class="login-box">
+    <h2>🔐 Área Administrativa</h2>
+    <p>Digite a senha de acesso:</p>
+    <input type="password" id="adminPassword" placeholder="Senha">
+    <br>
+    <button class="btn btn-primary" onclick="loginAdmin()">Entrar</button>
+    <p id="loginError" class="error"></p>
+  </div>
+
+  <!-- Painel de administração (oculto até login) -->
+  <div id="adminPanel" class="admin-panel hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <h2>👑 Administração de Exploradores</h2>
+      <button class="btn btn-small" onclick="logoutAdmin()">Sair</button>
+    </div>
+    <p id="msg" style="margin:8px 0;"></p>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Emoji</th>
+          <th>Moedas</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="explorersTableBody">
+        <tr><td colspan="5">Carregando...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // ===== CONFIGURAÇÃO =====
+    const ADMIN_PASSWORD = 'admin123'; // ALTERE AQUI SE DESEJAR
+
+    // ===== ELEMENTOS =====
+    const loginScreen = document.getElementById('loginScreen');
+    const adminPanel  = document.getElementById('adminPanel');
+    const tableBody   = document.getElementById('explorersTableBody');
+    const msgEl       = document.getElementById('msg');
+
+    // ===== AUTENTICAÇÃO =====
+    function loginAdmin() {
+      const pass = document.getElementById('adminPassword').value;
+      if (pass === ADMIN_PASSWORD) {
+        loginScreen.classList.add('hidden');
+        adminPanel.classList.remove('hidden');
+        carregarLista();
+      } else {
+        document.getElementById('loginError').textContent = 'Senha incorreta!';
+      }
+    }
+
+    function logoutAdmin() {
+      adminPanel.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      document.getElementById('adminPassword').value = '';
+      document.getElementById('loginError').textContent = '';
+    }
+
+    // ===== CARREGAR LISTA =====
+    async function carregarLista() {
+      try {
+        const res = await fetch('/view/api.php?action=exploradores');
+        const data = await res.json();
+        if (!data.exploradores) throw new Error('Erro ao carregar');
+        renderizarTabela(data.exploradores);
+      } catch (e) {
+        tableBody.innerHTML = `<tr><td colspan="5">Erro ao carregar exploradores.</td></tr>`;
+      }
+    }
+
+    function renderizarTabela(lista) {
+      if (lista.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="5">Nenhum explorador cadastrado.</td></tr>`;
+        return;
+      }
+      tableBody.innerHTML = lista.map(exp => `
+        <tr>
+          <td>${exp.id}</td>
+          <td>
+            <input type="text" id="nome-${exp.id}" value="${escapeHtml(exp.nome)}" style="width:100px;">
+          </td>
+          <td>
+            <input type="text" id="emoji-${exp.id}" value="${escapeHtml(exp.emoji)}" style="width:50px;">
+          </td>
+          <td>🪙 ${exp.moedas}</td>
+          <td class="actions">
+            <button class="btn btn-small btn-primary" onclick="salvarEdicao(${exp.id})">Salvar</button>
+            <button class="btn btn-small" onclick="resetarProgresso(${exp.id})">Zerar</button>
+            <button class="btn btn-small btn-danger" onclick="deletarExplorador(${exp.id})">Deletar</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function escapeHtml(text) {
+      return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ===== AÇÕES =====
+    async function salvarEdicao(id) {
+      const nome = document.getElementById('nome-' + id).value.trim();
+      const emoji = document.getElementById('emoji-' + id).value.trim();
+      if (!nome || !emoji) {
+        alert('Nome e emoji não podem ficar vazios.');
+        return;
+      }
+      try {
+        const res = await fetch('/view/api.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            action: 'editar_explorador',
+            explorer_id: id,
+            nome: nome,
+            emoji: emoji
+          })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          msgEl.textContent = '✅ Alterações salvas!';
+          setTimeout(() => msgEl.textContent = '', 2000);
+        } else {
+          alert('Erro ao salvar.');
+        }
+      } catch (e) {
+        alert('Erro de conexão.');
+      }
+    }
+
+    async function resetarProgresso(id) {
+      if (!confirm('Tem certeza que deseja zerar moedas e progresso deste explorador?')) return;
+      try {
+        const res = await fetch('/view/api.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ action: 'resetar_progresso', explorer_id: id })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          msgEl.textContent = '🔄 Progresso zerado!';
+          carregarLista();
+          setTimeout(() => msgEl.textContent = '', 2000);
+        }
+      } catch (e) {
+        alert('Erro ao resetar.');
+      }
+    }
+
+    async function deletarExplorador(id) {
+      if (!confirm('⚠️ Esta ação não pode ser desfeita. Deseja realmente deletar este explorador?')) return;
+      try {
+        const res = await fetch('/view/api.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ action: 'deletar_explorador', explorer_id: id })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          msgEl.textContent = '🗑️ Explorador deletado.';
+          carregarLista();
+          setTimeout(() => msgEl.textContent = '', 2000);
+        }
+      } catch (e) {
+        alert('Erro ao deletar.');
+      }
+    }
+  </script>
+</body>
+</html>

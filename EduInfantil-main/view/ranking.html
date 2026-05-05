@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../assets/css/style.css">
+<title>Safari Alpha - Ranking</title>
+</head>
+<body>
+<section id="page-ranking" class="page active">
+    <header class="topbar">
+    <button class="btn-back" onclick="window.location.href='mapa.html'">
+        ← Voltar ao Mapa
+    </button>
+    <h2 style="flex:1; text-align:center; font-family:'Baloo 2',cursive;">🏆 Ranking dos Exploradores</h2>
+    <div style="width:40px"></div>
+    </header>
+
+    <main class="mapa-scroll">
+    <div class="white-card" style="margin: 16px;">
+        <div id="ranking-list" style="text-align:center;">
+        <p>Carregando ranking...</p>
+        </div>
+    </div>
+    </main>
+</section>
+
+<script>
+    async function carregarRanking() {
+    try {
+        const res = await fetch('/view/api.php?action=ranking');
+        const data = await res.json();
+        const container = document.getElementById('ranking-list');
+        if (!data.ranking || data.ranking.length === 0) {
+        container.innerHTML = '<p>Nenhum explorador pontuou ainda.</p>';
+        return;
+        }
+
+        let html = '<ol style="list-style: none; padding: 0; max-width: 400px; margin: 0 auto;">';
+        data.ranking.forEach((expl, index) => {
+        const medalha = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '⭐';
+        html += `
+            <li style="display:flex; align-items:center; justify-content:space-between; padding:12px 16px; margin:8px 0; background:#fef6e4; border-radius:16px; font-size:1.2rem;">
+            <span>${medalha} ${expl.emoji} ${expl.nome}</span>
+            <span style="font-weight:bold;">🪙 ${expl.moedas}</span>
+            </li>
+        `;
+        });
+        html += '</ol>';
+        container.innerHTML = html;
+    } catch (err) {
+        document.getElementById('ranking-list').innerHTML = '<p>Erro ao carregar ranking.</p>';
+    }
+    }
+
+    document.addEventListener('DOMContentLoaded', carregarRanking);
+</script>
+</body>
+</html>
